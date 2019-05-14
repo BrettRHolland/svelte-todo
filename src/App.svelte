@@ -86,8 +86,34 @@
 </script>
 
 <style>
+  .container {
+    margin: 0 auto;
+    max-width: 500px;
+    padding: 0 20px;
+  }
+
+  .task {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-gap: 20px;
+  }
+
   .completed {
     text-decoration: line-through;
+  }
+
+  .completed-task {
+    -webkit-appearance: none;
+    background-color: white;
+    border-radius: 50%;
+    border: 1px solid gray;
+    height: 18px;
+    outline: 0;
+    width: 18px;
+  }
+
+  .completed-task:checked {
+    background-color: green;
   }
 
   .filter-button {
@@ -100,34 +126,40 @@
 </style>
 
 <div class="container">
+  <h1>to-do list</h1>
   <input
     class="task-input"
     placeholder="Enter a task"
     bind:value={newTask}
     on:keydown={addTask} />
 
-  {#each filteredTasks as task}
-    <div class="task" transition:fade>
-      <div class="completed-task">
-        <input type="checkbox" bind:checked={task.completed} />
-      </div>
-      {#if task.editing}
+  <div class="tasks">
+    {#each filteredTasks as task}
+      <div class="task" transition:fade>
+
         <input
-          class="edit-task"
-          on:blur={() => finishEdit(task)}
-          on:keydown={() => finishEditKeydown(task, event)}
-          bind:value={task.description}
-          autofocus />
-      {:else}
-        <div
-          class={task.completed ? 'task completed' : 'task'}
-          on:dblclick={() => editTask(task)}>
-           {task.description}
-        </div>
-      {/if}
-      <div class="delete-task" on:click={() => deleteTask(task.id)}>x</div>
-    </div>
-  {/each}
+          type="checkbox"
+          class="completed-task"
+          bind:checked={task.completed} />
+
+        {#if task.editing}
+          <input
+            class="edit-task"
+            on:blur={() => finishEdit(task)}
+            on:keydown={() => finishEditKeydown(task, event)}
+            bind:value={task.description}
+            autofocus />
+        {:else}
+          <p
+            class={task.completed ? 'task-description completed' : 'task-description'}
+            on:dblclick={() => editTask(task)}>
+             {task.description}
+          </p>
+        {/if}
+        <div class="delete-task" on:click={() => deleteTask(task.id)}>×</div>
+      </div>
+    {/each}
+  </div>
 
   <div class="all-tasks">
     <input type="checkbox" on:change={selectAllTasks} />

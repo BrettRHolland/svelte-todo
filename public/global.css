@@ -1,3 +1,16 @@
+@font-face {
+  font-family: "Berthold Akzidenz Grotesk BE Regular";
+  src: url("/fonts/Berthold Akzidenz Grotesk BE Regular.otf");
+}
+@font-face {
+  font-family: "Berthold Akzidenz Grotesk BE Bold";
+  src: url("/fonts/Berthold Akzidenz Grotesk BE Bold.otf");
+}
+
+* {
+	box-sizing: border-box;
+}
+
 html, body {
 	position: relative;
 	width: 100%;
@@ -9,7 +22,19 @@ body {
 	margin: 0;
 	padding: 8px;
 	box-sizing: border-box;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+	font-family: "Berthold Akzidenz Grotesk BE Regular", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+h1,h2,h3 {
+	font-family: "Berthold Akzidenz Grotesk BE Bold", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+h1 {
+	font-size: 24px;
+}
+
+p {
+	font-size: 18px;
 }
 
 a {
@@ -37,6 +62,10 @@ input, button, select, textarea {
 	box-sizing: border-box;
 	border: 1px solid #ccc;
 	border-radius: 2px;
+}
+
+input {
+	width: 100%;
 }
 
 input:disabled {
