@@ -25,6 +25,18 @@
       description: "Register for conference",
       completed: false,
       editing: false
+    },
+    {
+      id: 4,
+      description: "Pay bill",
+      completed: false,
+      editing: false
+    },
+    {
+      id: 5,
+      description: "Make dinner reservations",
+      completed: false,
+      editing: false
     }
   ];
 
@@ -62,8 +74,8 @@
     tasks = tasks.filter(task => task.id !== id);
   }
 
-  function selectAllTasks(event) {
-    tasks.forEach(task => (task.completed = event.target.checked));
+  function selectAllTasks() {
+    tasks.forEach(task => (task.completed = true));
     tasks = tasks;
   }
 
@@ -88,50 +100,169 @@
 <style>
   .container {
     margin: 0 auto;
-    max-width: 500px;
+    max-width: 700px;
     padding: 0 20px;
   }
 
+  .logo {
+    color: #565662;
+    font-size: 32px;
+    letter-spacing: -2px;
+    margin: 30px 0;
+  }
+
+  .task-input {
+    background-color: #565662;
+    border: 3px solid #565662;
+    color: #fff;
+    font-size: 18px;
+    margin: 0 0 6px 0;
+    padding: 18px 20px;
+  }
+
+  .task-input::placeholder {
+    color: #f2f6f9;
+  }
+
+  .task-input:focus {
+    border: 3px solid #ffcab6;
+    outline: 0;
+  }
+
   .task {
+    align-items: center;
+    background-color: #f2f6f9;
     display: grid;
-    grid-template-columns: auto 1fr auto;
     grid-gap: 20px;
+    grid-template-columns: auto 1fr auto;
+    margin-bottom: 2px;
+    padding: 25px 20px;
+  }
+
+  .task-description {
+    color: #565662;
+    font-size: 18px;
+    padding: 2px 0 0 0;
+  }
+
+  .edit-task {
+    background-color: #ffcab6;
+    border: 0;
+    color: #ff7b49;
+    font-size: 16px;
+    margin: 0;
+    outline: 0;
+    padding: 10px;
+  }
+
+  .edit-task:focus {
+    outline: 0;
   }
 
   .completed {
+    color: #aaaabc;
     text-decoration: line-through;
   }
 
   .completed-task {
     -webkit-appearance: none;
-    background-color: white;
+    background-color: #f2f6f9;
     border-radius: 50%;
-    border: 1px solid gray;
-    height: 18px;
+    border: 2px solid #565662;
+    cursor: pointer;
+    height: 19px;
+    margin: 0;
     outline: 0;
-    width: 18px;
+    width: 19px;
   }
 
   .completed-task:checked {
-    background-color: green;
+    background-color: #565662;
+  }
+
+  .delete-task {
+    color: #8b8c95;
+    cursor: pointer;
+    font-size: 20px;
+  }
+
+  .delete-task:hover {
+    color: #e45766;
+  }
+
+  .options {
+    align-items: center;
+    display: grid;
+    grid-gap: 30px;
+    grid-template-columns: auto auto auto auto auto;
+    justify-content: center;
+    margin: 20px 0;
+    width: 100%;
   }
 
   .filter-button {
-    background: white;
+    background: #fff;
+    border-radius: 20px;
+    border: 2px solid #fff;
+    color: #565662;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 3px 15px;
+  }
+
+  .filter-button:hover {
+    border-color: #f2f6f9;
   }
 
   .filter-button.active {
-    background: red;
+    border: 2px solid #565662;
+  }
+
+  .select-all-tasks {
+    background: #ffcab6;
+    border: 2px solid #ffcab6;
+    border-radius: 20px;
+    color: #ff7b49;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 3px 15px;
+  }
+
+  .select-all-tasks:hover {
+    border-color: #ff7b49;
+  }
+
+  .remove-completed-tasks {
+    background: #f4bcc2;
+    border-radius: 20px;
+    border: 2px solid #f4bcc2;
+    color: #e45766;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 3px 15px;
+  }
+
+  .remove-completed-tasks:hover {
+    border-color: #e45766;
+  }
+
+  .tasks-remaining {
+    background-color: #f2f6f9;
+    color: #4fb5b8;
+    display: inline-block;
+    font-size: 16px;
+    padding: 10px;
   }
 </style>
 
 <div class="container">
-  <h1>to-do list</h1>
+  <h1 class="logo">my tasks</h1>
   <input
     class="task-input"
-    placeholder="Enter a task"
+    placeholder="Enter a task..."
     bind:value={newTask}
-    on:keydown={addTask} />
+    on:keydown={addTask}
+    type="text" />
 
   <div class="tasks">
     {#each filteredTasks as task}
@@ -161,13 +292,7 @@
     {/each}
   </div>
 
-  <div class="all-tasks">
-    <input type="checkbox" on:change={selectAllTasks} />
-    Select all tasks
-    <p>{tasksRemaining} items left</p>
-  </div>
-
-  <div class="filter-tasks">
+  <div class="options">
     <button
       class={currentFilter === 'all' ? 'filter-button active' : 'filter-button'}
       on:click={() => updateFilter('all')}>
@@ -183,7 +308,14 @@
       on:click={() => updateFilter('completed')}>
       Completed
     </button>
+    <button class="select-all-tasks" on:click={selectAllTasks}>
+      Select all
+    </button>
+    <button class="remove-completed-tasks" on:click={clearCompletedTasks}>
+      Remove completed
+    </button>
   </div>
 
-  <button on:click={clearCompletedTasks}>Clear completed tasks</button>
+  <p class="tasks-remaining">{tasksRemaining} tasks remaining</p>
+
 </div>
