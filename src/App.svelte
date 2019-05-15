@@ -104,49 +104,70 @@
     padding: 0 20px;
   }
 
+  .header {
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+  }
+
   .logo {
-    color: #565662;
-    font-size: 32px;
-    letter-spacing: -2px;
-    margin: 30px 0;
+    color: #191919;
+    font-size: 28px;
+    letter-spacing: 0.5px;
+    margin: 35px auto 10px auto;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .tasks-remaining {
+    background-color: #191919;
+    border-radius: 2px;
+    color: #fff;
+    margin: 0 auto 30px auto;
+    padding: 10px;
+  }
+
+  .tasks-remaining strong {
+    font-family: "Berthold Akzidenz Grotesk BE Bold", sans-serif;
   }
 
   .task-input {
-    background-color: #565662;
-    border: 3px solid #565662;
-    color: #fff;
+    background-color: #fff;
+    border: 3px solid #f5f5f5;
+    border-radius: 2px;
+    color: #191919;
     font-size: 18px;
     margin: 0 0 6px 0;
-    padding: 18px 20px;
+    padding: 15px 20px;
   }
 
   .task-input::placeholder {
-    color: #f2f6f9;
+    color: #191919;
   }
 
   .task-input:focus {
-    border: 3px solid #ffcab6;
+    border: 3px solid #191919;
     outline: 0;
   }
 
   .task {
     align-items: center;
-    background-color: #f2f6f9;
+    background-color: #f5f5f5;
+    border-radius: 2px;
     display: grid;
     grid-gap: 20px;
     grid-template-columns: auto 1fr auto;
-    margin-bottom: 2px;
-    padding: 25px 20px;
+    margin-bottom: 4px;
+    padding: 20px 20px;
   }
 
   .task-description {
-    color: #565662;
-    font-size: 18px;
-    padding: 2px 0 0 0;
+    color: #191919;
+    padding: 1px 0 0 0;
   }
 
   .edit-task {
-    background-color: #ffcab6;
+    background-color: #fff;
     border: 0;
     color: #ff7b49;
     font-size: 16px;
@@ -160,34 +181,36 @@
   }
 
   .completed {
-    color: #aaaabc;
+    color: #b6b6b6;
     text-decoration: line-through;
   }
 
   .completed-task {
     -webkit-appearance: none;
-    background-color: #f2f6f9;
+    background-color: #f5f5f5;
+    border: 1px solid #b6b6b6;
     border-radius: 50%;
-    border: 2px solid #565662;
     cursor: pointer;
-    height: 19px;
+    height: 16px;
     margin: 0;
     outline: 0;
-    width: 19px;
+    width: 16px;
   }
 
   .completed-task:checked {
-    background-color: #565662;
+    background-color: #191919;
+    border-color: #191919;
   }
 
   .delete-task {
-    color: #8b8c95;
+    color: #b6b6b6;
     cursor: pointer;
+    font-family: "Berthold Akzidenz Grotesk BE Bold", sans-serif;
     font-size: 20px;
   }
 
   .delete-task:hover {
-    color: #e45766;
+    color: #191919;
   }
 
   .options {
@@ -204,10 +227,11 @@
     background: #fff;
     border-radius: 20px;
     border: 2px solid #fff;
-    color: #565662;
+    color: #191919;
     cursor: pointer;
     font-size: 16px;
     padding: 3px 15px;
+    outline: 0;
   }
 
   .filter-button:hover {
@@ -215,48 +239,51 @@
   }
 
   .filter-button.active {
-    border: 2px solid #565662;
+    border: 2px solid #191919;
+    font-family: "Berthold Akzidenz Grotesk BE Bold", sans-serif;
   }
 
   .select-all-tasks {
-    background: #ffcab6;
-    border: 2px solid #ffcab6;
+    background: #f5f5f5;
+    border: 2px solid #f5f5f5;
     border-radius: 20px;
-    color: #ff7b49;
+    color: #b6b6b6;
     cursor: pointer;
     font-size: 16px;
+    outline: 0;
     padding: 3px 15px;
   }
 
   .select-all-tasks:hover {
-    border-color: #ff7b49;
+    border-color: #191919;
+    color: #191919;
   }
 
   .remove-completed-tasks {
-    background: #f4bcc2;
+    background: #f5f5f5;
     border-radius: 20px;
-    border: 2px solid #f4bcc2;
-    color: #e45766;
+    border: 2px solid #f5f5f5;
+    color: #b6b6b6;
     cursor: pointer;
     font-size: 16px;
+    outline: 0;
     padding: 3px 15px;
   }
 
   .remove-completed-tasks:hover {
-    border-color: #e45766;
-  }
-
-  .tasks-remaining {
-    background-color: #f2f6f9;
-    color: #4fb5b8;
-    display: inline-block;
-    font-size: 16px;
-    padding: 10px;
+    border-color: #191919;
+    color: #191919;
   }
 </style>
 
 <div class="container">
-  <h1 class="logo">my tasks</h1>
+  <header class="header">
+    <h1 class="logo">My Tasks</h1>
+    <p class="tasks-remaining">
+      <strong>{tasksRemaining}</strong>
+      tasks remaining
+    </p>
+  </header>
   <input
     class="task-input"
     placeholder="Enter a task..."
@@ -315,7 +342,5 @@
       Remove completed
     </button>
   </div>
-
-  <p class="tasks-remaining">{tasksRemaining} tasks remaining</p>
 
 </div>
